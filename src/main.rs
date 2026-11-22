@@ -262,7 +262,7 @@ fn scan_models(directory: &Path) -> Result<Vec<(PathBuf, ModelInfo)>, String> {
             }
         }
     }
-    models.sort_by(|left, right| right.1.file_size.cmp(&left.1.file_size));
+    models.sort_by_key(|model| std::cmp::Reverse(model.1.file_size));
     Ok(models)
 }
 
