@@ -293,14 +293,16 @@ mod tests {
 
     #[test]
     fn reduces_context_to_fit_a_small_budget() {
-        let plan = create_plan(&model(), &system(), Some(2 * GIB));
-        assert!(plan
+        let mut cpu_only = system();
+        cpu_only.gpu = None;
+        let plan = create_plan(&model(), &cpu_only, Some(5 * GIB));
+        let performance = plan
             .profiles
             .iter()
-            .all(|profile| profile.context_length <= 8192));
-        assert!(plan
-            .profiles
-            .iter()
-            .any(|profile| profile.context_length == 512));
+            .find(|profile| matches!(profile.kind, ProfileKind::Performance))
+            .unwrap();
+
+        assert_eq!(performance.context_length, 4096);
+        assert!(performance.fits_memory_budget);
     }
 }
