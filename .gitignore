@@ -1,0 +1,7 @@
+/target/
+/work/
+*.pdb
+*.profraw
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,23 @@
+[package]
+name = "divideit"
+version = "0.1.0"
+edition = "2021"
+description = "A memory-aware planner for running local GGUF language models"
+license = "MIT"
+repository = "https://github.com/kaushikafkk/divideit"
+keywords = ["llm", "gguf", "inference", "memory", "rust"]
+categories = ["command-line-utilities", "development-tools"]
+
+[lib]
+name = "divideit"
+path = "src/lib.rs"
+
+[[bin]]
+name = "divideit"
+path = "src/main.rs"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+
