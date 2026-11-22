@@ -29,11 +29,19 @@ weight and KV-cache memory, and produces three useful profiles:
 
 ### Hardware inspection
 
-![DivideIT system profile](docs/assets/system-profile.png)
+![DivideIT system profile](docs/assets/system-profile.svg)
 
 ### Memory-aware execution plan
 
-![DivideIT memory plan](docs/assets/memory-plan.png)
+![DivideIT memory plan](docs/assets/memory-plan.svg)
+
+The screenshots are generated from DivideIT's dependency-free demo fixture: a sparse GGUF file
+containing realistic metadata but no model weights. You can reproduce the plan locally with:
+
+```bash
+cargo run --example make_demo_gguf -- work/divideit-demo.gguf
+cargo run -- plan work/divideit-demo.gguf --memory-limit 8GB
+```
 
 > DivideIT does not claim that dense LLM layers can run independently. Every generated token still
 > traverses every transformer block. The project reduces memory pressure through informed model

@@ -38,3 +38,10 @@ jobs:
       - name: Build release binary
         run: cargo build --release
 
+      - name: Exercise the end-to-end demo
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          cargo run --example make_demo_gguf -- work/divideit-demo.gguf
+          cargo run -- inspect-model work/divideit-demo.gguf
+          cargo run -- plan work/divideit-demo.gguf --memory-limit 8GB
+
